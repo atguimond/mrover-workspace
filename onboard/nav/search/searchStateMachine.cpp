@@ -164,6 +164,10 @@ NavState SearchStateMachine::executeSearchTurn( Rover* phoebe, const rapidjson::
     return NavState::SearchTurn;
 } // executeSearchTurn()
 
+
+// YOU ARE HERE
+
+
 // Executes the logic for driving while searching.
 // If the rover detects the tennis ball, it proceeds to the ball.
 // If the rover detects an obstacle, it proceeds to obstacle avoidance.

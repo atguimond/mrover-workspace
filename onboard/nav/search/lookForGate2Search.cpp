@@ -1,28 +1,24 @@
-#include "spiralOutSearch.hpp"
+#include "lookForGate2Search.hpp"
 #include "utilities.hpp"
-#include "rover_msgs/odometry.hpp"
 #include "stateMachine.hpp"
 
 #include <iostream>
 #include <cmath>
 
-SpiralOut::~SpiralOut() {}
+LookForGate2::~LookForGate2() {}
 
-// Initializes the search ponit multipliers to be the intermost loop
-// of the search.
-void SpiralOut::initializeSearch( Rover* phoebe, const rapidjson::Document& roverConfig, const double visionDistance )
+// Clears the search points
+void LookForGate2::initializeSearch( Rover* phoebe, const rapidjson::Document& roverConfig )
 {
     mSearchPoints.clear();
 
-    mSearchPointMultipliers.clear();
-    mSearchPointMultipliers.push_back( pair<short, short> (  0,  1 ) );
-    mSearchPointMultipliers.push_back( pair<short, short> ( -1,  1 ) );
-    mSearchPointMultipliers.push_back( pair<short, short> ( -1, -1 ) );
-    mSearchPointMultipliers.push_back( pair<short, short> (  1, -1 ) );
-
-    while( mSearchPointMultipliers[ 0 ].second * visionDistance < roverConfig[ "search" ][ "bailThresh" ].GetDouble() ) {
+    //change to while we want to keep looking for the second post. Hope we do not fuck up.
+    while( ) 
+    {
+        //for 3 because we want three search points??
         for( auto& mSearchPointMultiplier : mSearchPointMultipliers )
         {
+            //these need to be changed but I do not know how to change them.
             Odometry nextSearchPoint = phoebe->roverStatus().path().front().odom;
             double totalLatitudeMinutes = nextSearchPoint.latitude_min +
                 ( mSearchPointMultiplier.first * visionDistance  * LAT_METER_IN_MINUTES );

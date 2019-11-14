@@ -37,7 +37,16 @@ enum class NavState
     DriveAroundObs = 31,
     SearchTurnAroundObs = 32,
     SearchDriveAroundObs = 33,
+    // My Additions
+    SearchSpinGate2=34,
+    SearchSpinWaitGate2=35,
+    TurnedToGate2Wait=36,
+    SearchTurnGate2=37,
+    SearchDriveGate2=38,
+    DriveThroughGate=39,
     Unknown = 255
+    
+
 }; // AutonState
 
 // This class is the representation of the drive status.
