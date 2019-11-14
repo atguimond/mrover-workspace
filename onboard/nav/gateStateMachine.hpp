@@ -31,11 +31,7 @@ class GateStateMachine
 
         NavState executeDriveThroughGate( Rover* phoebe );
 
-        void updateGate2Angle( double bearing );
-
-        void updateTurnToGate2RoverAngle( double bearing );
-
-        void updateGate2DetectionElements( double ball_bearing, double rover_bearing );
+        void updateGate2DetectionElements( double ball_bearing );
 
         /*************************************************************************/
         /* Private Member Variables */
@@ -63,7 +59,7 @@ class GateStateMachine
 };
 
 // Creates an GateStateMachine object
-GateStateMachine* GateFactory( StateMachine* roverStateMachine);
+GateStateMachine* GateFactory( StateMachine* roverStateMachine, SearchType type );
 
 #endif //GATE_STATE_MACHINE_HPP
 

@@ -164,10 +164,6 @@ NavState SearchStateMachine::executeSearchTurn( Rover* phoebe, const rapidjson::
     return NavState::SearchTurn;
 } // executeSearchTurn()
 
-
-// YOU ARE HERE
-
-
 // Executes the logic for driving while searching.
 // If the rover detects the target, it proceeds to the target.
 // If the rover detects an obstacle, it proceeds to obstacle avoidance.
@@ -263,6 +259,8 @@ NavState SearchStateMachine::executeDriveToTarget( Rover* phoebe, const rapidjso
         roverStateMachine->updateCompletedPoints();
         roverStateMachine->updateFoundTargets();
         return NavState::Turn;
+
+        //implement go to gate state machine
     }
     if( driveStatus == DriveStatus::OnCourse )
     {

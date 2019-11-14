@@ -8,7 +8,7 @@
 LookForGate2::~LookForGate2() {}
 
 // Clears the search points
-void LookForGate2::initializeSearch( Rover* phoebe, const rapidjson::Document& roverConfig )
+void LookForGate2::initializeSearch( Rover* phoebe, const rapidjson::Document& roverConfig, const double visionDistance )
 {
     mSearchPoints.clear();
 
@@ -36,5 +36,5 @@ void LookForGate2::initializeSearch( Rover* phoebe, const rapidjson::Document& r
 
         }
     }
-    insertIntermediatePoints( phoebe, roverConfig );
+    //insertIntermediatePoints( phoebe, roverConfig );
 } // initializeSearch()
