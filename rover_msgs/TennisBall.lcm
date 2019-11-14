@@ -7,5 +7,3 @@ struct TennisBall {
 	double distance;
 	double tagBearing; // angle the tag is facing relative to the rover
 }
-
-pair<TennisBall, TennisBall>
