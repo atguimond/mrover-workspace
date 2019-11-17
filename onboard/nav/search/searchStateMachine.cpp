@@ -255,12 +255,15 @@ NavState SearchStateMachine::executeDriveToTarget( Rover* phoebe, const rapidjso
     if( driveStatus == DriveStatus::Arrived )
     {
         mSearchPoints.clear();
+        if( phoebe->roverStatus().path().front().gate )
+        {
+            return NavState::SearchSpinGate2; 
+        }
         phoebe->roverStatus().path().pop();
         roverStateMachine->updateCompletedPoints();
         roverStateMachine->updateFoundTargets();
         return NavState::Turn;
-
-        //implement go to gate state machine
+        
     }
     if( driveStatus == DriveStatus::OnCourse )
     {
