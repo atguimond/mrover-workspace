@@ -1,8 +1,6 @@
 package rover_msgs;
 
 struct Target {
-	boolean frontBack;
-	double bearing; // from straight ahead
 	double distance;
-	double tagBearing; // angle the tag is facing relative to the rover
+	double bearing; // from straight ahead
 }
