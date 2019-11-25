@@ -6,6 +6,7 @@
 #include "rover.hpp"
 #include "search/searchStateMachine.hpp"
 #include "obstacle_avoidance/simpleAvoidance.hpp"
+#include "gateStateMachine.hpp"
 
 using namespace std;
 using namespace rover_msgs;
@@ -118,6 +119,9 @@ private:
 
     // Search pointer to control search states
     SearchStateMachine* mSearchStateMachine;
+
+    // Search pointer to control gate states
+    GateStateMachine* mGateStateMachine;
 
     // Avoidance pointer to control obstacle avoidance states
     ObstacleAvoidanceStateMachine* mObstacleAvoidanceStateMachine;

@@ -14,6 +14,8 @@
 #include "search/spiralInSearch.hpp"
 #include "search/lawnMowerSearch.hpp"
 #include "obstacle_avoidance/simpleAvoidance.hpp"
+#include "./search/lookForGate2Search.hpp"
+#include "gateStateMachine.hpp"
 
 // Constructs a StateMachine object with the input lcm object.
 // Reads the configuartion file and constructs a Rover objet with this
@@ -155,6 +157,17 @@ void StateMachine::run()
             case NavState::DriveToTarget:
             {
                 nextState = mSearchStateMachine->run( mPhoebe, mRoverConfig );
+                break;
+            }
+
+            case NavState::SearchSpinGate2:
+            case NavState::SearchSpinWaitGate2:
+            case NavState::TurnedToGate2Wait:
+            case NavState::SearchTurnGate2:
+            case NavState::SearchDriveGate2:
+            case NavState::DriveThroughGate:
+            {
+                nextState = mGateStateMachine->run( mPhoebe, mRoverConfig );
                 break;
             }
 

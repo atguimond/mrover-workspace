@@ -2,7 +2,7 @@
 
 #include "utilities.hpp"
 #include "stateMachine.hpp"
-#include "searchStateMachine.hpp"
+#include "./search/lookForGate2Search.hpp"
 #include <cmath>
 #include <iostream>
 
@@ -10,7 +10,7 @@
 GateStateMachine::GateStateMachine( StateMachine* stateMachine_)
     : roverStateMachine( stateMachine_ ) {}
 
-NavState run( Rover* phoebe, const rapidjson::Document& roverConfig )
+NavState GateStateMachine::run( Rover* phoebe, const rapidjson::Document& roverConfig )
 {
     switch ( phoebe->roverStatus().currentState() )
     {
@@ -60,17 +60,17 @@ NavState GateStateMachine::executeSearchSpin( Rover* phoebe, const rapidjson::Do
     static double nextStop = 0; // to force the rover to wait initially
     static double mOriginalSpinAngle = 0; //initialize, is corrected on first call
 
-    if( phoebe->roverStatus().target2In().distance != -1 )
-    {
-        //check to see if it is the first gate
-        if ( phoebe->roverStatus().targetIn().tagBearing != 
-                phoebe->roverStatus().target2In().tagBearing )
-        {
-            //sets the bearing of the second gate and goes to drive through gate
-            updateGate2DetectionElements( phoebe->roverStatus().target2In().bearing );
-            return NavState::DriveThroughGate;
-        }
-    }
+    // if( phoebe->roverStatus().target2().distance != -1 )
+    // {
+    //     //check to see if it is the first gate
+    //     if ( phoebe->roverStatus().target().tagBearing != 
+    //             phoebe->roverStatus().target2().tagBearing )
+    //     {
+    //         //sets the bearing of the second gate and goes to drive through gate
+    //         updateGate2DetectionElements( phoebe->roverStatus().target2().bearing );
+    //         return NavState::DriveThroughGate;
+    //     }
+    // }
     if ( nextStop == 0 )
     {
         //get current angle and set as origAngle
@@ -99,17 +99,17 @@ NavState GateStateMachine::executeRoverWait( Rover* phoebe, const rapidjson::Doc
     static bool started = false;
     static time_t startTime;
 
-    if( phoebe->roverStatus().target2In().distance != -1 )
-    {
-        //check to see if it is the first gate
-        if ( phoebe->roverStatus().targetIn().tagBearing != 
-                phoebe->roverStatus().target2In().tagBearing )
-        {
-            //sets the bearing of the second gate and goes to drive through gate
-            updateGate2DetectionElements( phoebe->roverStatus().target2In().bearing );
-            return NavState::DriveThroughGate;
-        }
-    }
+    // if( phoebe->roverStatus().target2().distance != -1 )
+    // {
+    //     //check to see if it is the first gate
+    //     if ( phoebe->roverStatus().target().tagBearing != 
+    //             phoebe->roverStatus().target2().tagBearing )
+    //     {
+    //         //sets the bearing of the second gate and goes to drive through gate
+    //         updateGate2DetectionElements( phoebe->roverStatus().target2().bearing );
+    //         return NavState::DriveThroughGate;
+    //     }
+    // }
     if( !started )
     {
         phoebe->stop();
@@ -147,17 +147,17 @@ NavState GateStateMachine::executeSearchTurn( Rover* phoebe, const rapidjson::Do
     {
         return NavState::ChangeSearchAlg;
     }
-    if( phoebe->roverStatus().target2In().distance != -1 )
-    {
-        //check to see if it is the first gate
-        if ( phoebe->roverStatus().targetIn().tagBearing != 
-                phoebe->roverStatus().target2In().tagBearing )
-        {
-            //sets the bearing of the second gate and goes to drive through gate
-            updateGate2DetectionElements( phoebe->roverStatus().target2In().bearing );
-            return NavState::DriveThroughGate;
-        }
-    }
+    // if( phoebe->roverStatus().target2().distance != -1 )
+    // {
+    //     //check to see if it is the first gate
+    //     if ( phoebe->roverStatus().target().tagBearing != 
+    //             phoebe->roverStatus().target2().tagBearing )
+    //     {
+    //         //sets the bearing of the second gate and goes to drive through gate
+    //         updateGate2DetectionElements( phoebe->roverStatus().target2().bearing );
+    //         return NavState::DriveThroughGate;
+    //     }
+    // }
     Odometry& nextSearchPoint = mSearchPoints.front();
     if( phoebe->turn( nextSearchPoint ) )
     {
@@ -173,18 +173,18 @@ NavState GateStateMachine::executeSearchTurn( Rover* phoebe, const rapidjson::Do
 // Else the rover turns to the next Waypoint or turns back to the current Waypoint
 NavState GateStateMachine::executeSearchDrive( Rover* phoebe )
 {
-    //this needs an update. phoebe->roverStatus() needs another tennis ball object basically
-    if( phoebe->roverStatus().target2In().distance != -1 )
-    {
-        //check to see if it is the first gate
-        if ( phoebe->roverStatus().targetIn().tagBearing != 
-                phoebe->roverStatus().target2In().tagBearing )
-        {
-            //sets the bearing of the second gate and goes to drive through gate
-            updateGate2DetectionElements( phoebe->roverStatus().target2In().bearing );
-            return NavState::DriveThroughGate;
-        }
-    }
+    // //this needs an update. phoebe->roverStatus() needs another tennis ball object basically
+    // if( phoebe->roverStatus().target2().distance != -1 )
+    // {
+    //     //check to see if it is the first gate
+    //     if ( phoebe->roverStatus().target().tagBearing != 
+    //             phoebe->roverStatus().target2().tagBearing )
+    //     {
+    //         //sets the bearing of the second gate and goes to drive through gate
+    //         updateGate2DetectionElements( phoebe->roverStatus().target2().bearing );
+    //         return NavState::DriveThroughGate;
+    //     }
+    // }
     const Odometry& nextSearchPoint = mSearchPoints.front();
     DriveStatus driveStatus = phoebe->drive( nextSearchPoint );
 
@@ -204,7 +204,8 @@ NavState GateStateMachine::executeSearchDrive( Rover* phoebe )
 //Executes the traversal through the gate.
 NavState GateStateMachine::executeDriveThroughGate( Rover* phoebe )
 {
-    
+    cout << "Gate";
+    return NavState::SearchTurnGate2;
 }//executeDriveThroughGate
 
 // Sets last known gate 2 angle, so if the second gate is lost, we
@@ -223,10 +224,20 @@ void GateStateMachine::updateGate2DetectionElements( double ball_bearing )
 } // updateGate2DetectionElements
 
 // The gate factory allows for the creation of gate objects
-GateStateMachine* GateFactory ( StateMachine* stateMachine, SearchType type )
+GateStateMachine* GateFactory ( StateMachine* stateMachine, Gate2SearchType type )
 {
-    GateStateMachine* gate = nullptr;
-    type = new LookForGate2Search( stateMachine ); 
-    //add more search algorithms???
+    GateStateMachine* search = nullptr;
+    switch (type)
+    {
+        case Gate2SearchType::LOOKFORGATE2:
+            search = new LookForGate2Search( stateMachine ); 
+            break;
+        default:
+            std::cerr << "Unkown Search Type. Defaulting to LookForGate2\n";
+            search = new LookForGate2Search( stateMachine );
+            break;
+    }
+    return search;
 } //GateFactory
+//TODO: add more search algorithms???
 

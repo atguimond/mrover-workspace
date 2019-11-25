@@ -1,6 +1,6 @@
 #include "spiralOutSearch.hpp"
 #include "utilities.hpp"
-#include "rover_msgs/odometry.hpp"
+#include "rover_msgs/Odometry.hpp"
 #include "stateMachine.hpp"
 
 #include <iostream>

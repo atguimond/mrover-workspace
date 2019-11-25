@@ -3,13 +3,16 @@
 
 #include "gateStateMachine.hpp"
 
-class LookForGate2 : public GateStateMachine
+/*************************************************************************/
+/* LookForGate2rr Search */
+/*************************************************************************/
+class LookForGate2Search : public GateStateMachine
 {
 public:
-    LookForGate2( StateMachine* stateMachine_ )
+    LookForGate2Search( StateMachine* stateMachine_ )
     : GateStateMachine(stateMachine_) {}
 
-    ~LookForGate2();
+    ~LookForGate2Search();
 
     // Initializes the search ponit multipliers to be the intermost loop
     // of the search.

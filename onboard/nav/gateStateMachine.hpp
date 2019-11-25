@@ -2,8 +2,14 @@
 #define GATE_STATE_MACHINE_HPP
 
 #include "rover.hpp"
+#include "./search/searchStateMachine.hpp"
 
 class StateMachine;
+
+enum class Gate2SearchType
+{
+    LOOKFORGATE2
+};
 
 class GateStateMachine
 {
@@ -33,6 +39,8 @@ class GateStateMachine
 
         void updateGate2DetectionElements( double ball_bearing );
 
+        void updateGate2Angle( double bearing );
+
         /*************************************************************************/
         /* Private Member Variables */
         /*************************************************************************/
@@ -59,7 +67,7 @@ class GateStateMachine
 };
 
 // Creates an GateStateMachine object
-GateStateMachine* GateFactory( StateMachine* roverStateMachine, SearchType type );
+GateStateMachine* GateFactory( StateMachine* stateMachine, SearchType type );
 
 #endif //GATE_STATE_MACHINE_HPP
 
