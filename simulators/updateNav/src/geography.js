@@ -31,6 +31,7 @@ export function dist_and_bearing(from, to) {
     if (from_lon > to_lon) {
         bearing = 2.0*Math.PI - bearing;
     }
+
     if (dlat_meters < 0.001 && dlat_meters > -0.001) {
         if (from_lon < to_lon) {
             bearing = Math.PI/2.0;
@@ -64,7 +65,7 @@ export function inv_projection({center_lat, center_lon}, {x, y}) {
 };
 
 export function projection({center_lat, center_lon}, pt) {
-    const { dist, bearing } = dist_and_bearing({ 
+    const { dist, bearing } = dist_and_bearing({
         lat: center_lat,
         lon: center_lon
     }, pt);
