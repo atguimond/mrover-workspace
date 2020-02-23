@@ -350,7 +350,7 @@ NavState StateMachine::executeTurn()
     }
     // If we should drop a repeater and have not already, add last
     // point where connection was good to front of path and turn
-    if ( isAddRepeaterDropPoint() )
+    if ( isAddRepeaterDropPoint() && false )
     {
         addRepeaterDropPoint();
         return NavState::RadioRepeaterTurn;
@@ -386,7 +386,7 @@ NavState StateMachine::executeDrive()
 
     // If we should drop a repeater and have not already, add last
     // point where connection was good to front of path and turn
-    if ( isAddRepeaterDropPoint() )
+    if ( isAddRepeaterDropPoint() && false )
     {
         addRepeaterDropPoint();
         return NavState::RadioRepeaterTurn;
