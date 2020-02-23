@@ -56,7 +56,8 @@ NavState GateStateMachine::run()
 
         case NavState::GateShimmy:
         {
-            return executeGateShimmy();
+            return NavState::GateDriveThrough;
+            //return executeGateShimmy();
         }
 
         case NavState::GateDriveThrough:

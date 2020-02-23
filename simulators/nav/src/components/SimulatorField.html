@@ -27,7 +27,7 @@ const VECTOR_SIZE_M = 1; // meters
 const WAYPOINT_SIZE = 10;
 const TENNIS_BALL_SIZE = 4;
 // const ROCK_SIZE = 25;
-const ROCK_SIZE_M = 1.2; // meters
+const ROCK_SIZE_M = .3; // meters
 const POST_BLOCKING_ANGLE = 15 * Math.PI/180; // A post behind another post must be at least 15 degrees offset to be visible
 
 function ensure_in_range(x, min, max) {
@@ -75,6 +75,8 @@ export default {
             const odom_coords = this.projection(to_decimal(odom));
             const gates = this.get('gates');
             let crash_info =  { crashed: false, close_call: false, crash_site: null };
+            // quick and dirty getting rid of x's
+            return crash_info;
 
             for (let i = 0; i < gates.length; i++) {
                 const gate = gates[i];
@@ -792,7 +794,7 @@ export default {
 
             const bearing_rad = (90 - bearing_deg) * Math.PI / 180;
 
-            const vel = this.get('translational_speed') * stick.forward_back;
+            const vel = this.get('translational_speed') / 4 * stick.forward_back;
 
             x += vel * Math.cos(bearing_rad);
             y += vel * Math.sin(bearing_rad);
